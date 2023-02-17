@@ -26,7 +26,9 @@ class PostController extends Controller
                 ->where('title', 'like', '%' . request('search') . '%')
                 ->orWhere('description', 'like', '%' . request('search') . '%')
                 ->orWhere('id', 'like', '%' . request('search') . '%');
+
         }
+
         return Inertia::render('Post/Index', ['posts' =>  $query->get()->toArray() , 'search' => $request->search]);
     }
 
@@ -43,6 +45,11 @@ class PostController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
+        $request->validate([
+                'title' => 'required|max:255',
+                'description' => 'required|max:510',
+        ]);
         Post::create([ 'title' => $request->title, 'description' => $request->description] );
         return Redirect::route('posts.index');
     }
@@ -60,6 +67,7 @@ class PostController extends Controller
      */
     public function edit(Post $post): Response
     {
+
         return Inertia::render('Post/Edit', [
             'post' => [
                 'id' => $post->id,
@@ -74,6 +82,10 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post): RedirectResponse
     {
+        $request->validate([
+                'title' => 'required|max:255',
+                'description' => 'required|max:510',
+        ]);
         $post->update([ 'title' => $request->title, 'description' => $request->description] );
         
         return Redirect::route('posts.index');
