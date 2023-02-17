@@ -1,10 +1,10 @@
 
 Versions
-  LARAVEL v10.0.3  plugin v0.7.4
-  Composer version 2.5.4 2023-02-15 13:10:06
-  Node Version v19.6.1
-  PHP 8.2.3 (cli) 
-  mysql  Ver 8.0.32 
+  - LARAVEL v10.0.3  plugin v0.7.4
+  - Composer version 2.5.4 2023-02-15 13:10:06
+  - Node Version v19.6.1
+  - PHP 8.2.3 (cli) 
+  - mysql  Ver 8.0.32 
 
 1.) Clone repository
 
