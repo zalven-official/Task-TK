@@ -60,9 +60,9 @@ const Edit = () => {
                         onClick={destroy}
                         tabIndex="-1"
                         type="button"
-                        className="px-4 py-2 text-white bg-red-500 rounded"
+                        className="mx-5 px-4 py-2 text-white bg-red-500 rounded"
                     >
-                        Delete
+                        Deletes
                     </button>
                     <div className="bg-white text-black p-2 w-24 my-5 rounded-md shadow-sm">
                         <Link href={route("posts.index")} >

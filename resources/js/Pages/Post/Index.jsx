@@ -7,7 +7,11 @@ const Index = () => {
     const { data, setData, get, errors } = useForm({
         search: search || "",
     });
-
+    const switchLink = useForm();
+    const createTask = (e) => {
+        e.preventDefault();
+        switchLink.get(route("posts.create"))
+    }
     const onSearch = (e) => {
         e.preventDefault();
         get(route("posts.index"));
@@ -18,11 +22,13 @@ const Index = () => {
                 <h1 className="mb-8 text-3xl font-bold text-center">Task</h1>
                 <div className="overflow-x-auto bg-white rounded shadow">
                     <div className=" text-white p-2 w-full m-5 rounded-md shadow-sm">
-                        <div className="w-36 bg-black w-46 p-2 m-2 rounded-md">
-                            <Link href={route("posts.create")} >
-                                + Create Task
-                            </Link>
-                        </div>
+
+                        <button className="w-36 bg-black w-46 p-2 m-2 rounded-md" onClick={createTask}>
+
+                            + Create Task
+
+                        </button>
+
                         <form onSubmit={onSearch} className="mt-10" name="searchForm">
                             <input onChange={(e) => setData("search", e.target.value)} value={data.search} type="search" className="text-black shadow rounded border-0 p-3 w-10/12 text-blac " placeholder="Search Task..." />
                         </form>
@@ -34,7 +40,7 @@ const Index = () => {
                                 <th className="px-6 pt-5 pb-4">#</th>
                                 <th className="px-6 pt-5 pb-4">Title</th>
                                 <th className="px-6 pt-5 pb-4">Description</th>
-                                <th className="px-6 pt-5 pb-4">Action</th>
+                                <th className="px-6 pt-5 pb-4"></th>
                             </tr>
                         </thead>
                         <tbody>
