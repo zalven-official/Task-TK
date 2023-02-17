@@ -8,6 +8,7 @@ import { Inertia } from "@inertiajs/inertia";
 
 const Edit = () => {
     const { post } = usePage().props;
+
     const { data, setData, put, errors } = useForm({
         title: post.title || "",
         description: post.description || "",
@@ -22,11 +23,33 @@ const Edit = () => {
             Inertia.delete(route("posts.destroy", post.id));
         }
     }
+
+    function formatDate(date) {
+        date = new Date(date)
+        var year = date.getFullYear(),
+            month = date.getMonth() + 1, // months are zero indexed
+            day = date.getDate(),
+            hour = date.getHours(),
+            minute = date.getMinutes(),
+            second = date.getSeconds(),
+            hourFormatted = hour % 12 || 12, // hour returned in 24 hour format
+            minuteFormatted = minute < 10 ? "0" + minute : minute,
+            morning = hour < 12 ? "am" : "pm";
+
+        return month + "/" + day + "/" + year + " - " + hourFormatted + ":" + minuteFormatted + morning;
+    }
+
     return (
         <div className="flex min-h-screen items-center justify-start bg-white">
             <div className="mx-auto w-full max-w-lg">
+
                 <h1 className="text-4xl font-medium">Edit Tasks</h1>
-                <p className="mt-3"> Edit the  Task </p>
+                <span className="mt-1 p-1 text-xs text-gray-700"> created : {formatDate(post.created_at)}</span>
+                {post.updated_at != post.created_at && <span> - </span>}
+                {post.updated_at != post.created_at && <span className=" p-1 text-xs text-gray-700"> Updated : {formatDate(post.updated_at)}</span>}
+
+                <p className="mt-3 font-bold"> Edit the  Task </p>
+
                 <form onSubmit={handleSubmit} className="mt-10" name="createForm">
                     <div className="grid gap-6 sm:grid-cols-2">
                         <div className="relative z-0">
