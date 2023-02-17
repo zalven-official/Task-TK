@@ -1,22 +1,32 @@
-import React from "react";
-
+import React, { useState } from "react";
 import { usePage, useForm } from '@inertiajs/react'
 import { Link } from '@inertiajs/react'
 
 const Index = () => {
-    const { posts } = usePage().props;
-    const { data } = posts;
+    const { posts, search } = usePage().props;
+    console.log(posts)
+    const { data, setData, get, errors } = useForm({
+        search: search || "",
+    });
 
+    const onSearch = (e) => {
+        e.preventDefault();
+        get(route("posts.index"));
+    }
     return (
         <div>
             <div className="container mx-auto">
                 <h1 className="mb-8 text-3xl font-bold text-center">Task</h1>
-
                 <div className="overflow-x-auto bg-white rounded shadow">
-                    <div className="bg-black text-white p-2 w-36 m-5 rounded-md shadow-sm">
-                        <Link href={route("posts.create")} >
-                            + Create Task
-                        </Link>
+                    <div className=" text-white p-2 w-full m-5 rounded-md shadow-sm">
+                        <div className="w-36 bg-black w-46 p-2 m-2 rounded-md">
+                            <Link href={route("posts.create")} >
+                                + Create Task
+                            </Link>
+                        </div>
+                        <form onSubmit={onSearch} className="mt-10" name="searchForm">
+                            <input onChange={(e) => setData("search", e.target.value)} value={data.search} type="search" className="text-black shadow rounded border-0 p-3 w-10/12 text-blac " placeholder="Search Task..." />
+                        </form>
                     </div>
 
                     <table className="w-full whitespace-nowrap">
@@ -64,7 +74,7 @@ const Index = () => {
                     </table>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

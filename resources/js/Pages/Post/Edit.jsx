@@ -64,6 +64,11 @@ const Edit = () => {
                     >
                         Delete
                     </button>
+                    <div className="bg-white text-black p-2 w-24 my-5 rounded-md shadow-sm">
+                        <Link href={route("posts.index")} >
+                            {"<"}   Go Back
+                        </Link>
+                    </div>
                 </form>
             </div>
         </div>

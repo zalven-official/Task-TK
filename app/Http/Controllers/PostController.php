@@ -17,11 +17,17 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $posts = Post::latest()->get();
-
-        return Inertia::render('Post/Index', ['posts' => $posts]);
+        $query = Post::query();
+        if ( $request->search) {
+            $query
+                ->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('description', 'like', '%' . request('search') . '%')
+                ->orWhere('id', 'like', '%' . request('search') . '%');
+        }
+        return Inertia::render('Post/Index', ['posts' =>  $query->get()->toArray() , 'search' => $request->search]);
     }
 
     /**
