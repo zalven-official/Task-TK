@@ -1,7 +1,16 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import { usePage, useForm } from '@inertiajs/react'
 
+import React, { useEffect } from 'react';
 export default function Dashboard(props) {
+    const { data, setData, get, errors } = useForm();
+
+
+    useEffect(() => {
+
+        get(route("posts.index"));
+    });
     return (
         <AuthenticatedLayout
             auth={props.auth}

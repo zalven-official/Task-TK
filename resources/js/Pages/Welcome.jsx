@@ -1,6 +1,14 @@
 import { Link, Head } from '@inertiajs/react';
+import React, { useEffect } from 'react';
+import { usePage, useForm } from '@inertiajs/react'
 
 export default function Welcome(props) {
+    const { data, setData, get, errors } = useForm();
+    useEffect(() => {
+
+        get(route("posts.index"));
+    });
+
     return (
         <>
             <Head title="Welcome" />

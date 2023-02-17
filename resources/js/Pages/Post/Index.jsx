@@ -4,7 +4,6 @@ import { Link } from '@inertiajs/react'
 
 const Index = () => {
     const { posts, search } = usePage().props;
-    console.log(posts)
     const { data, setData, get, errors } = useForm({
         search: search || "",
     });
