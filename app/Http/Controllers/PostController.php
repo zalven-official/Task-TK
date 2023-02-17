@@ -26,7 +26,6 @@ class PostController extends Controller
                 ->where('title', 'like', '%' . request('search') . '%')
                 ->orWhere('description', 'like', '%' . request('search') . '%')
                 ->orWhere('id', 'like', '%' . request('search') . '%');
-
         }
 
         return Inertia::render('Post/Index', ['posts' =>  $query->get()->toArray() , 'search' => $request->search]);
@@ -97,6 +96,14 @@ class PostController extends Controller
     public function destroy(Post $post): RedirectResponse
     {
         $post->delete();
+        return Redirect::route('posts.index');
+
+    }
+
+    public function delete_many(Request $request): RedirectResponse
+    {
+
+        Post::whereIn('id', explode(",",$request->id))->delete();
         return Redirect::route('posts.index');
 
     }

@@ -37,5 +37,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('posts', PostController::class);
+Route::delete('posts/delete-many/{id}', [PostController::class, 'delete_many'])->name('posts.delete-many');
+
 
 require __DIR__.'/auth.php';
